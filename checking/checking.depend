@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1604377267 source:d:\new folder\checking\main.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
