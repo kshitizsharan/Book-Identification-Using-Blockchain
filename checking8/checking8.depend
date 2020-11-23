@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1606019273 source:d:\book_identification_blockchain\checking8\main.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+

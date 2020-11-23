@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include<string.h>
 #define MAX 10
-#define MAX_TRANS 10
+#define MAX_TRANS 5
 #define NUMBER_OF_BLOCKS 1000
 #define NUMBER_OF_TRANSACTIONS (NUMBER_OF_BLOCKS*10)
 
+int user();
 void block_init();
 void bufferread1();
 void bufferread();
@@ -29,7 +30,7 @@ struct block
 };
 struct block *head=NULL;
 char historyHash[MAX];
-int count=0,count1=0,track=0,rear = - 1,front = - 1,book_id[MAX];
+int count=0,count1=0,track=0,rear = - 1,front = - 1,userno=0,book_id[MAX];
 int block_number_init[NUMBER_OF_BLOCKS],buffer[NUMBER_OF_TRANSACTIONS],bufferblock[NUMBER_OF_BLOCKS];
 
 int main()
@@ -41,13 +42,18 @@ int main()
         fileName = fopen("blockchain.txt","a+");
         bufferread1();
         block_init();
+
+        while(userno<5)
+            user();
+        addTransactions();
+
         //fp1 = fopen("History.txt","w");
         int choice /*number_blocks*/;
         printf("\n\n   READ IF ALREADY BLOCKS ARE CREATED\n\n\n");
         while(1){
 
                 printf("\n                MENU                             \n");
-                printf("\n 1.ADD BOOK ID    \n");
+                //printf("\n 1.ADD BOOK ID    \n");
                 printf("\n 2.DISPLAY    \n");
                 printf("\n 3.VERIFY    \n");
                 //printf("\n 4.INSERT       \n");
@@ -179,9 +185,13 @@ struct block *temp,*ptr;
 
 //for(int i=0;i<count;i++)
 //    printf("%d\n",buffer[i]);
+
+FILE *fp1;
+fp1=fopen("Transactions.txt","r");
+
 if(rear == MAX_TRANS - 1)
     {
-        printf("Completed 10 Transactions (Book ID) For Block Creation \n");
+        printf("Completed 5 Transactions (Book ID) For Block Creation \n");
         temp=(struct block *)malloc(sizeof(struct block));
         if(temp==NULL)
         {
@@ -255,6 +265,7 @@ if(rear == MAX_TRANS - 1)
             front = front + 1;
 
         }
+        printf("flag");
 //--------------------------------------------------------------------------------------------------------
         // Making it again -1 so that next transactions could be added
         rear = - 1;
@@ -586,6 +597,22 @@ else
 {
 if(front== - 1)
 front = 0;
+//item=user();
+//FILE *fp1;
+//fp1=fopen("Transactions.txt","r");
+
+for(int i=0;i<userno;i++)
+{
+    fscanf(fp1,"%d\n",&item);
+    buffer[count]=item;
+    count++;
+    rear = rear + 1;
+    book_id[rear] = item;
+    printf("%d\n",rear);
+}
+rear++;
+
+/*
 printf("INSERT BOOK ID : ");
 scanf("%d", &item);
 
@@ -599,13 +626,38 @@ for(int i=0;i<count;i++)
         i=-1;
     }
 }
-buffer[count]=item;
-count++;
-rear = rear + 1;
-book_id[rear] = item;
+
+    buffer[count]=item;
+    count++;
+    rear = rear + 1;
+    book_id[rear] = item;
+*/
 
 }
 }
+
+
+int user()
+{
+    int pasw=0,bid,cypher;
+    FILE *fp1;
+    fp1=fopen("Transactions.txt","a");
+
+
+    printf("\n                           ENTER THE PASSWORD\n\n");
+    scanf("%d",&pasw);
+    userno++;
+    printf("Enter THE BOOK ID\n");
+    scanf("%d",&bid);
+    cypher=(pasw*bid)%2147483646;
+    fprintf(fp1,"%d\n",cypher);
+    fclose(fp1);
+   // exit(0);
+
+}
+
+
+
 void search()
 {
     struct block *current;
@@ -808,3 +860,29 @@ int searchbuffer(int key)
 }
 
 
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
+
+
+/*
+int user()
+{
+    int pasw=0,bid,cypher;
+    FILE *fp1;
+    fp1=fopen("Transactions.txt","a");
+
+
+    printf("\n                           ENTER THE PASSWORD\n\n");
+    scanf("%d",&pasw);
+    userno++;
+    printf("Enter THE BOOK ID\n");
+    scanf("%d",&bid);
+    cypher=(pasw*bid)%2147483646;
+    fprintf(fp1,"%d\n",cypher);
+    fclose(fp1);
+   // exit(0);
+
+}
+*/

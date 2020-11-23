@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include<string.h>
 #define MAX 10
-#define MAX_TRANS 10
+#define MAX_TRANS 5
 #define NUMBER_OF_BLOCKS 1000
 #define NUMBER_OF_TRANSACTIONS (NUMBER_OF_BLOCKS*10)
 
@@ -29,11 +29,12 @@ struct block
 };
 struct block *head=NULL;
 char historyHash[MAX];
-int count=0,count1=0,track=0,rear = - 1,front = - 1,book_id[MAX];
+int count=0,count1=0,track=0,rear = - 1,front = - 1,book_id[MAX],bufferZ[NUMBER_OF_TRANSACTIONS];
 int block_number_init[NUMBER_OF_BLOCKS],buffer[NUMBER_OF_TRANSACTIONS],bufferblock[NUMBER_OF_BLOCKS];
+int realcustomersearch=0;
 
 int main()
-{
+{/**<  */
         //struct block* node;
         //int block_count;
         int stamp=-1;
@@ -606,31 +607,108 @@ book_id[rear] = item;
 
 }
 }
-void search()
-{
-    struct block *current;
- //   char hash_val[10];
-    int block_number;
-    current = head;
-    printf("\nENTER THE BLOCK NUMBER TO SEARCH ALL DETAILS: \n");
-    scanf("%d",&block_number);
-    while(current != NULL)
-    {
 
-        if (current->block_number == block_number)
-           {
-                printf("\n\nBLOCK FOUND\n");
-                printf("\nHASH: %s\n\n",current->hash);
+// void search()
+// {
+//     __label__ exit ;
+//     struct block *current;
+//     char contact_number[10];
+//     int important[realcustomersearch];
+//     int buffertemp[NUMBER_OF_TRANSACTIONS];
+//     int temp,flag=0,flag1=0,letsc=0;
+//  //   char hash_val[10];
+//     FILE *fp1,*fp2,*fp3;
+//     fp1=fopen("buffer1.txt","r+");
+//     fp2=fopen("bufferZ.txt","w+");
+//     fp3=fopen("realcustomercount.txt","w+");
+//     fscanf(fp3,"%d\n",&realcustomersearch);
+//     printf("%d\n",realcustomersearch);
+//     for(int i=0;i<count;i++)
+//     {
+//         fscanf(fp1,"%d\n",&buffertemp[i]);
+//     }
+//     for(int i=0;i<realcustomersearch;i++)
+//     {
+//         fscanf(fp2,"%d\n",&bufferZ[i]);
+//     }
+// /*  for(int i=0;i<realcustomersearch;i++)
+//     {
+//         fscanf(fp3,"%d\n",&bufferZ[i]);
+//         //buffer[i]=buffer1[i];
+//     }
+// */
+//     int block_number;
+//     current = head;
+//     //printf("\nENTER THE BLOCK NUMBER TO SEARCH ALL DETAILS: \n");
+//     //scanf("%d",&block_number);
+//     printf("\n\nENTER THE BOOK ID\n");
+//     scanf("%d",&temp);
 
-                for(int i=0;i<MAX_TRANS;i++)
-                    printf("Book ID %d\n",current->transactions[i]);
-           }
+//     for(int i=0;i<realcustomersearch;i++)
+//     {
+//         if(temp==bufferZ[i])
+//         {
+//             flag1=1;
+//         }
+//     }
 
-        current = current->next;
+//     if(flag1==1)
+//     {
+//         printf("\n\nTHIS BOOK IS NOT AUTHENTIC \nPLEASE SHARE YOUR CONTACT NUMBER\n\n");
+//         scanf("%s",&contact_number);
+//         printf("\nTHANK YOU\nWE WILL CONNECT WITH YOU SHORTLY\n\n");
+//         goto exit ;
+//     }
 
-    }
+//     for(int i=0;i<NUMBER_OF_TRANSACTIONS;i++)
+//     {
+//         if(temp==buffertemp[i])
+//         {
+//             flag=1;
+//             bufferZ[i]=temp;
+//         }
+//     }
 
-}
+//     if(flag==1)
+//     {
+//         printf("\n\nFOUND THE TRANSACTION. THE BOOK IS AUTHENTIC\n\n");
+//         //fprintf(fp2,"%d\n",temp);
+//         realcustomersearch++;
+//         bufferZ[letsc]=temp;
+//         letsc++;
+//     }
+//     else
+//     {
+//         printf("\n\nCOULD NOT FIND THE BOOK. \n\n");
+//     }
+
+// /*    while(current != NULL)
+//     {
+
+//         if (current->block_number == block_number)
+//            {
+//                 printf("\n\nBLOCK FOUND\n");
+//                 printf("\nHASH: %s\n\n",current->hash);
+
+//                 for(int i=0;i<MAX_TRANS;i++)
+//                     printf("Book ID %d\n",current->transactions[i]);
+//            }
+
+//         current = current->next;
+
+//     }
+// */
+//     exit: ;
+//     fprintf(fp3,"%d\n",realcustomersearch);
+//     for(int i=0;i<realcustomersearch;i++)
+//         fprintf(fp2,"%d\n",bufferZ[i]);
+//     fclose(fp3);
+//     fclose(fp2);
+//     fclose(fp1);
+//     //fclose(fp2);
+
+// }
+
 void read(int number_of_blocks)
 {   struct block *temp,*ptr;
 //    char hash[10];
@@ -704,7 +782,7 @@ void insert()
 void bufferwrite()
 {
     FILE *fp,*fp3,*fp2;
-    FILE *fp4,*fp5,*fp6;
+    FILE *fp4,*fp5,*fp6,*fp7,*fp8;
     fp=fopen("buffer.txt","w+");
     //printf("\n%s\n",historyHash);
     fprintf(fp,"%s\n",historyHash);
@@ -726,23 +804,31 @@ void bufferwrite()
     fp6=fopen("track1.txt","w");
     fprintf(fp6,"%d\n",track);
 
+    fp7=fopen("realcustomercount.txt","w");
+    fprintf(fp7,"%d\n",realcustomersearch);
+
+    fp8=fopen("bufferZ.txt","w");
+    for(int i=0;i<realcustomersearch;i++)
+    fprintf(fp8,"%d\n",bufferZ[i]);
+
 //    for(int i=0;i<count1;i++)
 //    printf("%d\n",bufferblock[i]);
 }
 void bufferread1()
 {
-    FILE *fp11,*fp12;
+    FILE *fp11,*fp12,*fp13,*fp14;
     fp11=fopen("bufferblock.txt","r");
     fscanf(fp11,"%d\n",&count1);
 
     fp12=fopen("track1.txt","r");
     fscanf(fp12,"%d\n",&track);
+
     //printf("\nFLAG\n");
 }
 void bufferread()
 {
     FILE *fp,*fp2,*fp3;
-    FILE *fp5;
+    FILE *fp5,*fp6,*fp7;
  //   char history[10];
  //   int buffer1[count];
  //   int buffer2;
@@ -765,6 +851,15 @@ void bufferread()
     fp5=fopen("bufferblockdata.txt","r");
     for(int i=0;i<count1;i++)
     fscanf(fp5,"%d\n",&bufferblock[i]);
+
+    fp6=fopen("realcustomersearch.txt","r");
+    fscanf(fp6,"%d\n",&realcustomersearch);
+
+    fp7=fopen("bufferZ.txt","r");
+    for(int i=0;i<realcustomersearch;i++)
+    {
+        fscanf(fp7,"%d\n",&bufferZ[i]);
+    }
 
 }
 void block_init()
@@ -806,5 +901,3 @@ int searchbuffer(int key)
     else
         return 0;
 }
-
-
