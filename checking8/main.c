@@ -47,15 +47,15 @@ int main()
         printf("\n\n   READ IF ALREADY BLOCKS ARE CREATED\n\n\n");
         while(1){
 
-                printf("\n                MENU                             \n");
-                printf("\n 1.ADD BOOK ID    \n");
-                printf("\n 2.DISPLAY    \n");
-                printf("\n 3.VERIFY    \n");
+                printf("\n                                                                             MENU\n");
+                printf("\n                                                                        1.ADD BOOK ID    \n");
+                printf("\n                                                                        2.DISPLAY    \n");
+                printf("\n                                                                        3.VERIFY    \n");
                 //printf("\n 4.INSERT       \n");
-                printf("\n 4.READ       \n");
-                printf("\n 5.SEARCH       \n");
-                printf("\n 6.EXIT       \n");
-                printf("\n--------------------------------------\n");
+                printf("\n                                                                        4.READ       \n");
+                //printf("\n 5.SEARCH       \n");
+                printf("\n                                                                        5.EXIT       \n");
+                printf("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
                 printf("Enter your choice:\t");
                 scanf("%d",&choice);
                 switch(choice)
@@ -74,14 +74,14 @@ int main()
                                         stamp++;
                                         if(stamp==1)
                                         {
-                                            printf("\n\nCANNOT RUN MORE THAN ONCE\n\n");
+                                            printf("\n\n                                CANNOT RUN MORE THAN ONCE\n\n");
                                             break;
                                         }
                                         bufferread();
                                         fseek(fileName, 0, SEEK_END); // goto end of file
                                         if(ftell(fileName) == 0)
                                         {
-                                            printf("\nFILE IS EMPTY\n");
+                                            printf("\n                                         FILE IS EMPTY\n");
                                         }
                                         else
                                         {
@@ -92,16 +92,16 @@ int main()
                                         fseek(fileName, 0, SEEK_SET);
                                         break;
 
-                        case 5:         search();
-                                        break;
-                        case 6:
+                        // case 5:         search();
+                        //                 break;
+                        case 5:
                                         bufferwrite();
                                         insert();
                                         exit(0);
                                         break;
 
                         default:
-                                        printf("\n INVALID INPUT:\n");
+                                        printf("\n                                                      INVALID INPUT:\n");
                                         break;
                 }
         }
@@ -115,13 +115,13 @@ void verify()
     int check=1, j=0;;
     if(head==NULL)
         {
-                printf("\nLIST IS EMPTY:\n");
+                printf("\n                                                                              LIST IS EMPTY:\n");
                 return;
         }
     else
         {
                 ptr=head;
-                printf("\nVERIFTING THE BLOCKCHAIN...\n");
+                printf("\n                                                                         VERIFTING THE BLOCKCHAIN...\n");
                 while(ptr!=NULL)
                 {
                     for(int i=0;i<10;i++)
@@ -132,12 +132,12 @@ void verify()
                     //check=strcmp(ptr->hash,ptr->next->prev_hash);
                     if(check==0)
                     {
-                        printf("\nVERIFIED BLOCK %d\n",j+2);
+                        printf("\n                                                                      VERIFIED BLOCK %d\n",j+2);
                         j++;
                     }
                     else
                     {
-                        printf("\nINCORRECT BLOCKCHAIN\n");
+                        printf("\n                                                                     INCORRECT BLOCKCHAIN\n");
                     }
                     ptr=ptr->next ;
                 }
@@ -148,19 +148,19 @@ void display()
         struct block *ptr;
         if(head==NULL)
         {
-                printf("\n\nBLOCKCHAIN IS EMPTY:\n\n");
+                printf("\n\n                                                                           BLOCKCHAIN IS EMPTY:\n\n");
                 return;
         }
         else
         {
                 ptr=head;
-                printf("\n|BLOCKCHAIN:\n\n");
+                printf("\n                                                                              BLOCKCHAIN:\n\n");
                 while(ptr!=NULL)
                 {
-                        printf("BLOCK No. :  %d\nHash :  %s\nPrevious Hash :  %s\n",ptr->block_number,ptr->hash,ptr->prev_hash );
+                        printf("                                                                        BLOCK No. :  %d\n                                                                        Hash :  %s\n                                                                        Previous Hash :  %s\n",ptr->block_number,ptr->hash,ptr->prev_hash );
                         for(int i=0;i<MAX_TRANS;i++)
                         {
-                            printf("Book ID :  %d\n",ptr->transactions[i]);
+                            printf("                                                                        Book ID :  %d\n",ptr->transactions[i]);
                         }
                         ptr=ptr->next ;
                 }
@@ -182,7 +182,7 @@ struct block *temp,*ptr;
 //    printf("%d\n",buffer[i]);
 if(rear == MAX_TRANS - 1)
     {
-        printf("Completed 10 Transactions (Book ID) For Block Creation \n");
+        printf("                                                        Completed 5 Transactions (Book ID) For Block Creation \n");
         temp=(struct block *)malloc(sizeof(struct block));
         if(temp==NULL)
         {
@@ -535,8 +535,7 @@ if(rear == MAX_TRANS - 1)
 //----------------------------------------------------------------------------------------------------------
         char rev_base[11];
         //printf("\n\n%s\n%d\n\n",base_string,strlen(base_string));
-        printf("\nHash For this BLOCK:  \n");
-        printf("'");
+        printf("\n                                                                         Hash For this BLOCK:  \n");
         for(int i=0;i<10;i++)
         {
             rev_base[i]=rev_base_string[i];
@@ -544,8 +543,7 @@ if(rear == MAX_TRANS - 1)
             //count++;
         }
         rev_base[10]='\0';
-        printf("%s",rev_base);
-        printf("'");
+        printf("                                                                             '%s'",rev_base);
         //printf("\n%d\n",count);
         base_string[0] = '\0';
         //printf("\n\nEnter only The FIRST 10 DIGITS PRESENT IN BRACKETS ABOVE");
@@ -580,22 +578,22 @@ if(rear == MAX_TRANS - 1)
                 ptr->next =temp;
                 temp->next = NULL;
         }
-        printf("\n\nBLOCK INSERTED\n\n");
+        printf("\n\n                                                                            BLOCK INSERTED\n\n\n\n");
 
     }
 else
 {
 if(front== - 1)
 front = 0;
-printf("INSERT BOOK ID : ");
+printf("                                                                         INSERT BOOK ID : ");
 scanf("%d", &item);
 
 for(int i=0;i<count;i++)
 {
     if(buffer[i]==item)
     {
-        printf("\n\nBOOK ID EXISTS\n\nTRY AGAIN\n\n");
-        printf("INSERT BOOK ID : ");
+        printf("\n\n                                                                         BOOK ID EXISTS\n\n                                                                         TRY AGAIN\n\n");
+        printf("                                                                         INSERT BOOK ID : ");
         scanf("%d", &item);
         i=-1;
     }
@@ -750,7 +748,7 @@ void read(int number_of_blocks)
         }
 	}
 	//fclose(py);
-	printf("\n\nDONE\n\n");
+	printf("\n\n                                                                             DONE\n\n");
 }
 void insert()
 {
