@@ -18,7 +18,10 @@ int realcustomercount = 0 ;
 void read()
 {
     FILE *fp1,*fp2;
-   // char pass[MAX];
+    // char pass[MAX];
+    // int cypher ;
+    // int number ;
+    // int book_id ;
     fp1=fopen("realcustomercount.txt","r");
     fp2=fopen("database.txt","r");
 
@@ -27,7 +30,10 @@ void read()
     for(int i=0;i<realcustomercount;i++)
     {
         fscanf(fp2,"%d\n",&array[i].book);
+        // book_id = array[i].book ;
         fscanf(fp2,"%d\n",&array[i].password);
+        // number = (cypher - (1111*book_id));
+        // array[i].password = number;
         //printf("%s\n",pass);
         //strcpy(array[i].password,pass);
     }
@@ -60,11 +66,11 @@ int main()
     
     if(satisfy == 1)
     {
-        printf("                                                                                GREAT\n\n");
+        printf("                                                             THIS IS AN AUTHENTIC BOOK AND ENJOY YOUR READ\n\n");
     }
     else
     {
-        printf("                                                                           NO TRESPASSING\n\n");
+        printf("                                                                         INCORRECT PASSWORD\n\n");
     }
     
 

@@ -32,6 +32,9 @@ int main()
 void read()
 {
     FILE *fp1,*fp2,*fp3;
+    int cypher;
+    int number;
+    int book_id;
     fp1=fopen("realcustomercount.txt","r");
     fp2=fopen("bufferZ.txt","r");
     fp3=fopen("database.txt","r");
@@ -44,7 +47,13 @@ void read()
     for(int i=0;i<realcustomercount;i++)
     {
         fscanf(fp3,"%d\n",&array[i].book);
+        book_id = array[i].book;
+        //cypher = array[i].password - ((array[i].password*(i+1)) / array[i].book);
+        //array[i].password = cypher;
         fscanf(fp3,"%d\n",&array[i].password);
+        // number = (cypher - (1111*book_id));
+        // array[i].password = number;
+
     }
 
     
@@ -53,6 +62,8 @@ void read()
 void write()
 {
     FILE *fp1,*fp2,*fp3;
+
+    int cypher;
 
     fp1=fopen("realcustomercount.txt","w");
     fp2=fopen("bufferZ.txt","w+");
@@ -66,6 +77,8 @@ void write()
     for(int i=0;i<realcustomercount;i++)
     {
         fprintf(fp3,"%d\n",array[i].book);
+        //cypher = array[i].password + ((array[i].password*(i+1)) / array[i].book);
+        //array[i].password = cypher;
         fprintf(fp3,"%d\n",array[i].password);
     }
 
@@ -75,6 +88,8 @@ void searching()
 {
     int buffer1[NUMBER_OF_TRANSACTIONS];
     int book_id;
+    // int number;
+    // int cypher;
     int present = 0;
     int anomally = 0;
     char contact[10];
@@ -139,6 +154,8 @@ void searching()
             printf("                                                                       CREATE PASSWORD\n");
             printf("                                                                         ");
             scanf("%d",&array[realcustomercount].password);
+            // cypher = (number + (1111*book_id));
+            // array[realcustomercount].password = cypher;
             array[realcustomercount].book = book_id ;
 
             realcustomercount++;
