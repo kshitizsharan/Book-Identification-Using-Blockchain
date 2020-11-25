@@ -2,14 +2,14 @@
 #include<stdlib.h>
 #include<string.h>
 #include<math.h>
-#define MAX 10
+#define MAX 6
 #define MAX_TRANS 5
 #define NUMBER_OF_BLOCKS 1000
 #define NUMBER_OF_TRANSACTIONS (NUMBER_OF_BLOCKS*MAX_TRANS)
 
 struct customer{
     int book;
-    int password;
+    char password[MAX];
 };
 
 struct customer array[NUMBER_OF_TRANSACTIONS];
@@ -31,11 +31,12 @@ void read()
     {
         fscanf(fp2,"%d\n",&array[i].book);
         // book_id = array[i].book ;
-        fscanf(fp2,"%d\n",&array[i].password);
+        fscanf(fp2,"%s\n",&array[i].password);
         // number = (cypher - (1111*book_id));
         // array[i].password = number;
         //printf("%s\n",pass);
         //strcpy(array[i].password,pass);
+        //printf("\n%s\n",array[i].password);
     }
 
     
@@ -44,20 +45,36 @@ void read()
 int main()
 {
     int book_id;
-    int pass;
+    int count = 0;
+    //int pass;
     int satisfy = 0;
+    int cmp = 0;
+    char pass[MAX];
     read();
     printf("                                                                                LOGIN\n\n");
     printf("                                                                          ENTER THE BOOK ID\n");
     printf("                                                                                  ");
     scanf("%d",&book_id);
-    printf("                                                                         ENTER THE PASSWORD\n\n");
+    printf("                                                                            ENTER THE PIN\n\n");
     printf("                                                                                ");
-    scanf("%d",&pass);
-
+    //fflush(stdin);
+    //fgets(pass, (sizeof(pass)+1) , stdin);
+    scanf("%s",pass);
+    //printf("\n%s\n",pass);
     for(int i=0;i<realcustomercount;i++)
     {
-        if(pass==array[i].password && book_id==array[i].book)
+/*        for(int j=0;j<5;j++)
+        {
+            if(pass[j]==array[i].password[j])
+            {   
+                if(j == 4 && count == 4)
+                    cmp = 1;
+                count++;
+            }
+        }
+        count = 0 ;
+    */
+        if( strcmp(array[i].password,pass) == 0 && book_id==array[i].book)
         {
             satisfy = 1;
             break;
@@ -70,7 +87,7 @@ int main()
     }
     else
     {
-        printf("                                                                         INCORRECT PASSWORD\n\n");
+        printf("                                                                            INCORRECT PIN\n\n");
     }
     
 

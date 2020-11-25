@@ -2,6 +2,13 @@
 #include<stdlib.h>
 #include<string.h>
 #include<math.h>
+#include<conio.h>
+
+#define ENTER 13
+#define TAB 9
+#define BKSP 8
+#define SPACE 32
+
 #define MAX 10
 #define MAX_TRANS 5
 #define NUMBER_OF_BLOCKS 1000
@@ -9,7 +16,7 @@
 
 struct customer{
     int book;
-    int password;
+    char password[5];
 };
 
 struct customer array[NUMBER_OF_TRANSACTIONS];
@@ -50,7 +57,7 @@ void read()
         book_id = array[i].book;
         //cypher = array[i].password - ((array[i].password*(i+1)) / array[i].book);
         //array[i].password = cypher;
-        fscanf(fp3,"%d\n",&array[i].password);
+        fscanf(fp3,"%s\n",&array[i].password);
         // number = (cypher - (1111*book_id));
         // array[i].password = number;
 
@@ -79,7 +86,7 @@ void write()
         fprintf(fp3,"%d\n",array[i].book);
         //cypher = array[i].password + ((array[i].password*(i+1)) / array[i].book);
         //array[i].password = cypher;
-        fprintf(fp3,"%d\n",array[i].password);
+        fprintf(fp3,"%s\n",array[i].password);
     }
 
 }
@@ -88,11 +95,14 @@ void searching()
 {
     int buffer1[NUMBER_OF_TRANSACTIONS];
     int book_id;
+    int i = 0 ;
     // int number;
     // int cypher;
     int present = 0;
     int anomally = 0;
     char contact[10];
+    char ch ; 
+    char pass[5] ;
     FILE *fp1,*fp2,*fp3,*fp4;
     fp1=fopen("buffer1.txt","r");
     fp2=fopen("buffer2.txt","r");
@@ -151,13 +161,46 @@ void searching()
             printf("\n                                                      THIS IS AN AUTHENTIC BOOK . ENJOY YOUR READING\n\n");
             buffer2[realcustomercount] = book_id;
 
-            printf("                                                                       CREATE PASSWORD\n");
-            printf("                                                                         ");
-            scanf("%d",&array[realcustomercount].password);
+            printf("                                                                        CREATE 5 DIGIT PIN\n");
+            printf("                                                                               ");
+            //scanf("%s",&array[realcustomercount].password);
+            
+            
+            //---------------------------------------------------------------------------------------------------------------------
+            
+            while(1)
+            {
+            ch=getch();
+            if(ch==ENTER)
+            {
+                pass[i]='\0';
+                break;
+            }
+            else if(ch==BKSP)
+            {
+                if(i>0)
+                {
+                    i--;
+                    printf("\b \b");
+                }
+            }
+            else if(ch==TAB || ch==SPACE)
+            {
+                continue;
+            }
+            else
+            {
+                pass[i] = ch ;
+                i++ ; 
+                printf("*");
+            }
+            }
+            strcpy(array[realcustomercount].password,pass);
+            
+            //---------------------------------------------------------------------------------------------------------------------
             // cypher = (number + (1111*book_id));
             // array[realcustomercount].password = cypher;
             array[realcustomercount].book = book_id ;
-
             realcustomercount++;
 
         }
